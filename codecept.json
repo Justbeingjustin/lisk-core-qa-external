@@ -6,6 +6,9 @@
 		},
 		"ValidateHelper": {
 			"require": "./support/validate_helper.js"
+		},
+		"ResponseValidator": {
+			"require": "./support/response_validator.js"
 		}
 	},
 	"include": {},

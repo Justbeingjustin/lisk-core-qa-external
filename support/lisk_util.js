@@ -1,15 +1,8 @@
 const elements = require('lisk-elements');
 const output = require('codeceptjs').output;
 const API = require('./api.js');
-const {
-	config,
-	GENESIS_ACCOUNT,
-	ASGARD_FIXTURE,
-	seedNode,
-} = require('../fixtures');
+const { config, GENESIS_ACCOUNT, seedNode } = require('../fixtures');
 const { TO_BEDDOWS, BLOCK_TIME, from } = require('../utils');
-
-const users = {};
 
 /* eslint camelcase: ["error", {allow: ["codecept_helper"]}] */
 const Helper = codecept_helper;
@@ -24,53 +17,8 @@ class LiskUtil extends Helper {
 	}
 
 	/**
-	 * returns network config object
-	 */
-	haveNetworkConfig() {
-		return config;
-	}
-
-	/**
-	 * Returns genesis account object
-	 */
-	haveGenesisAccount() {
-		return GENESIS_ACCOUNT;
-	}
-
-	/**
-	 * Returns asgard account fixture object
-	 */
-	haveAsgardFixture() {
-		return ASGARD_FIXTURE();
-	}
-
-	/**
-	 * Add user account to memory
-	 * @param {string} name name for the account
-	 * @param {Object} user account object
-	 */
-	addAccount(name, user) {
-		users[name] = user;
-	}
-
-	/**
-	 * Get account from memory
-	 * @param {string} name account name
-	 */
-	getAccount(name) {
-		return users[name];
-	}
-
-	/**
-	 * Get all the accounts from memory
-	 */
-	getAllAccount() {
-		return users;
-	}
-
-	/**
-	 *
-	 * @param {number} ms - wait time in millisecond
+	 * function to wait until given time in millisecond
+	 * @param {number} ms - time in millisecond
 	 * @returns {Promise}
 	 */
 	async wait(ms) {
@@ -83,7 +31,7 @@ class LiskUtil extends Helper {
 
 	/**
 	 * wait until the network reaches the specific block height
-	 * @param {number} numberOfBlocks - number of blocks to wait
+	 * @param {number} numberOfBlocks - number of blocks to wait(default 1 block)
 	 */
 	async waitForBlock(numberOfBlocks = 1) {
 		if (numberOfBlocks > 0) {
@@ -114,7 +62,7 @@ class LiskUtil extends Helper {
 
 		if (height >= expectedHeight) {
 			// Remove the buffer time when network is stable
-			if (unconfirmed + unprocessed >= 0) {
+			if (unconfirmed + unprocessed > 0) {
 				await this.wait(BLOCK_TIME);
 			}
 			return height;
@@ -156,7 +104,7 @@ class LiskUtil extends Helper {
 			return;
 		}
 		expect(error).to.be.null;
-		this.helpers.ValidateHelper.expectResponseToBeValid(
+		this.helpers.ResponseValidator.expectResponseToBeValid(
 			result,
 			'GeneralStatusResponse'
 		);
@@ -181,7 +129,7 @@ class LiskUtil extends Helper {
 			return;
 		}
 		expect(error).to.be.null;
-		this.helpers.ValidateHelper.expectResponseToBeValid(
+		this.helpers.ResponseValidator.expectResponseToBeValid(
 			result,
 			'SignatureResponse'
 		);
@@ -440,7 +388,7 @@ class LiskUtil extends Helper {
 		);
 
 		expect(response.error).to.be.null;
-		this.helpers.ValidateHelper.expectResponseToBeValid(
+		this.helpers.ResponseValidator.expectResponseToBeValid(
 			response.result,
 			'TransactionsResponse'
 		);
@@ -453,7 +401,7 @@ class LiskUtil extends Helper {
 		const { result, error } = await from(this.call().getVoters({ address }));
 
 		expect(error).to.be.null;
-		this.helpers.ValidateHelper.expectResponseToBeValid(
+		this.helpers.ResponseValidator.expectResponseToBeValid(
 			result,
 			'VotersResponse'
 		);
