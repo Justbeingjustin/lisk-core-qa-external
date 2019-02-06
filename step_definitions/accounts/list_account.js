@@ -14,7 +14,7 @@ Then(
 	'I should get list of accounts sorted by {string} in {string} order',
 	async (field, order) => {
 		await I.expectResponseToBeValid(response.result, 'AccountsResponse');
-		await I.expectResponseToBeSortedBy(response.result.data, field, order);
+		await I.expectResponseToBeSortedBy(response.result, field, order);
 	}
 );
 

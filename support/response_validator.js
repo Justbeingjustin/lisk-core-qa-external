@@ -79,7 +79,8 @@ class ResponseValidator extends Helper {
 			const [k, v] = item;
 			if (['sort'].includes(k)) {
 				const [field, order] = v.split(':');
-				this.expectResponseToBeSortedBy(response.data.votes, field, order);
+				const data = { data: response.data.votes };
+				this.expectResponseToBeSortedBy(data, field, order);
 			} else if (k !== 'limit') {
 				expect(response.data[k].toString()).to.deep.equal(v);
 			}
@@ -91,7 +92,8 @@ class ResponseValidator extends Helper {
 			const [k, v] = item;
 			if (['sort'].includes(k)) {
 				const [field, order] = v.split(':');
-				this.expectResponseToBeSortedBy(response.data.voters, field, order);
+				const data = { data: response.data.voters };
+				this.expectResponseToBeSortedBy(data, field, order);
 			} else if (k !== 'limit') {
 				expect(response.data[k].toString()).to.deep.equal(v);
 			}

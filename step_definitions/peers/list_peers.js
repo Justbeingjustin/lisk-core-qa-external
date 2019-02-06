@@ -18,7 +18,7 @@ Then('I should get list of peers', async () => {
 Then(
 	'Peers should be sorted by {string} in {string} order by default',
 	async (sortKey, order) => {
-		await I.expectResponseToBeSortedBy(response.result.data, sortKey, order);
+		await I.expectResponseToBeSortedBy(response.result, sortKey, order);
 	}
 );
 
