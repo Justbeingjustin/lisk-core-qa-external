@@ -14,7 +14,7 @@ Then(
 	'I should get list of blocks sorted by {string} in {string} order',
 	async (field, order) => {
 		await I.expectResponseToBeValid(response.result, 'BlocksResponse');
-		await I.expectResponseToBeSortedBy(response.result.data, field, order);
+		await I.expectResponseToBeSortedBy(response.result, field, order);
 		await I.expectDefaultCount(response.result);
 	}
 );

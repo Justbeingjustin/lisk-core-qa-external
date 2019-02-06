@@ -17,7 +17,7 @@ Then(
 		expect(error).to.be.null;
 		await I.expectResponseToBeValid(result, 'TransactionsResponse');
 		await I.expectDefaultCount(result);
-		await I.expectResponseToBeSortedBy(result.data, field, order);
+		await I.expectResponseToBeSortedBy(result, field, order);
 	}
 );
 
