@@ -54,7 +54,7 @@ lisk_version: ${env.LISK_VERSION}""",
 				}
 			}
 		}
-		stage('Generate peer config and enable forging') {
+		stage('Configure peers and enable forging') {
 			steps {
 				nvm(getNodejsVersion()) {
 					sh '''
@@ -66,7 +66,7 @@ lisk_version: ${env.LISK_VERSION}""",
 				}
 			}
 		}
-		stage('Test Scenarios') {
+		stage('Regression tests') {
 			steps {
 				retry(2) {
 					timestamps {
@@ -79,7 +79,7 @@ lisk_version: ${env.LISK_VERSION}""",
 				}
 			}
 		}
-		stage('Test Network Stress') {
+		stage('Network stress test') {
 			steps {
 				timestamps {
 					nvm(getNodejsVersion()) {
